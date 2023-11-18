@@ -64,3 +64,5 @@
 #endif
 
 #define RP2040_FLASH_GD25Q64CS
+
+#define TAP_CODE_DELAY 100

@@ -25,9 +25,9 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "KC_LCTL",
-      "MO(1)",
       "KC_LGUI",
+      "MO(1)",
+      "KC_LCTL",
       "KC_BSPC",
       "KC_P",
       "KC_O",
@@ -49,8 +49,8 @@
       "KC_NO",
       "KC_NO",
       "KC_NO",
-      "MO(2)",
-      "KC_SPC",
+      "MO(3)",
+      "LT(2,KC_SPC)",
       "KC_MS_BTN1"
     ],
     [
@@ -100,7 +100,7 @@
       "KC_NO",
       "KC_NO",
       "KC_TRNS",
-      "KC_TRNS",
+      "KC_RALT",
       "KC_MS_BTN2"
     ],
     [

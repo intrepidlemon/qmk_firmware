@@ -23,18 +23,18 @@ void housekeeping_task_user(void) {
 }
 
 // Modify these values to adjust the scrolling speed
-#define SCROLL_DIVISOR_H 6.0
-#define SCROLL_DIVISOR_V 6.0
+#define SCROLL_DIVISOR_H 7.0
+#define SCROLL_DIVISOR_V 7.0
 
 // Variables to store accumulated scroll values
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 // Modify these to adjust non-linear mouse scaling
-#define MAX_SCALE 128
-#define MIN_SCALE 1
-#define GROWTH_FACTOR 16
-#define MOMENTUM 0.0
+#define MAX_SCALE 32767
+#define MIN_SCALE 0
+#define GROWTH_FACTOR 4
+#define MOMENTUM 0.01
 
 // Variable to store an exponential moving average scaling factor to denoise the non-linear scaling
 float accumulated_factor = MIN_SCALE;
@@ -46,12 +46,12 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
 
         // Assign integer parts of accumulated scroll values to the mouse report
-        mouse_report.h = -(int8_t)scroll_accumulated_h;
-        mouse_report.v = (int8_t)scroll_accumulated_v;
+        mouse_report.h = -(int16_t)scroll_accumulated_h;
+        mouse_report.v = (int16_t)scroll_accumulated_v;
 
         // Update accumulated scroll values by subtracting the integer parts
-        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
-        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+        scroll_accumulated_h -= (int16_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int16_t)scroll_accumulated_v;
 
         // Clear the X and Y values of the mouse report
         mouse_report.x = 0;
@@ -73,8 +73,8 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         }
         else {
             // scale up the mouse movement by the average factor
-            mouse_report.x = (int8_t)(mouse_report.x * accumulated_factor);
-            mouse_report.y = (int8_t)(mouse_report.y * accumulated_factor);
+            mouse_report.x = (int16_t)(mouse_report.x * accumulated_factor);
+            mouse_report.y = (int16_t)(mouse_report.y * accumulated_factor);
         }
     }
     return mouse_report;

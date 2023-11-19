@@ -21,6 +21,7 @@
 #endif
 #if defined(POINTING_DEVICE_POSITION_THUMB) || defined(POINTING_DEVICE_POSITION_MIDDLE)
 #endif
+#define MOUSE_EXTENDED_REPORT
 
 #ifdef POINTING_DEVICE_TRACKPOINT_VENDOR
 // The default streaming mode is flaky and doesn't always work. This setting doesn't seem to affect performance.

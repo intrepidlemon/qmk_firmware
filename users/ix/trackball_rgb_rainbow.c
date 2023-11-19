@@ -23,18 +23,18 @@ void housekeeping_task_user(void) {
 }
 
 // Modify these values to adjust the scrolling speed
-#define SCROLL_DIVISOR_H 8.0
-#define SCROLL_DIVISOR_V 8.0
+#define SCROLL_DIVISOR_H 6.0
+#define SCROLL_DIVISOR_V 6.0
 
 // Variables to store accumulated scroll values
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
 
 // Modify these to adjust non-linear mouse scaling
-#define MAX_SCALE 16
+#define MAX_SCALE 128
 #define MIN_SCALE 1
-#define GROWTH_FACTOR 2
-#define MOMENTUM 0.01
+#define GROWTH_FACTOR 16
+#define MOMENTUM 0.0
 
 // Variable to store an exponential moving average scaling factor to denoise the non-linear scaling
 float accumulated_factor = MIN_SCALE;
@@ -63,7 +63,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
         float mouse_length = sqrt(mouse_report.x*mouse_report.x + mouse_report.y*mouse_report.y);
 
         // compute an instantaneous scaling factor and update exponential moving average
-        float factor =  GROWTH_FACTOR*mouse_length+ MIN_SCALE;
+        float factor =  GROWTH_FACTOR*mouse_length+MIN_SCALE;
         accumulated_factor = accumulated_factor*(1-MOMENTUM) + factor*MOMENTUM;
 
         if (accumulated_factor > MAX_SCALE) {

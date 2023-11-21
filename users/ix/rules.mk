@@ -1,5 +1,4 @@
 SERIAL_DRIVER = vendor
-# SRC += $(USER_PATH)/idank.c
 
 # Disable things we don't support that take up unnecessary space.
 RGBLIGHT_SUPPORTED = no
@@ -43,6 +42,7 @@ MOUSEKEY_ENABLE = yes
 ifeq ($(strip $(OLED)), yes)
 	OLED_ENABLE     = yes
 	OLED_DRIVER     = ssd1306
+	SRC += $(USER_PATH)/oled.c
 else
 	OLED_ENABLE     = no
 endif
